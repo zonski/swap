@@ -1,13 +1,8 @@
-import {useFetchThing} from "../../api/thing.api";
-import {CreateThingSchema, Thing} from "@swap/common";
+import {useListThings} from "../../api/thing.api";
 
 export const SearchThings = () => {
 
-  const response = useFetchThing();
-
-  const p = CreateThingSchema.parse({
-    name: 'a'
-  });
+  const response = useListThings();
 
   return (
     <>
@@ -15,7 +10,11 @@ export const SearchThings = () => {
         Loading: {response.isLoading}
       </div>
       <div>
-        Name: {response.data?.name}
+        <ul>
+          {response.data.map(t => (
+            {t.name} - {t.description}
+          ))}
+        </ul>
       </div>
     </>
   );

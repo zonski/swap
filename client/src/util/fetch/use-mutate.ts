@@ -1,13 +1,13 @@
 import {useAuth0} from "@auth0/auth0-react";
 import {config} from "../../config";
-import {useMutation, useQuery} from "react-query";
+import {useMutation} from "react-query";
 
 const serverUrl = config.serverUrl;
 
-export const useFetchQuery = <ResultType>(key: string, endpoint: string) => {
+export const useMutate = <RequestType, ResultType>(key: string, endpoint: string) => {
   const auth0 = useAuth0();
 
-  const mutateCall = async () => {
+  const mutateCall = async (body: RequestType) => {
     const accessToken = await auth0.getAccessTokenSilently({
       authorizationParams: {
         audience: config.auth0.audience
@@ -19,9 +19,10 @@ export const useFetchQuery = <ResultType>(key: string, endpoint: string) => {
         'Content-Type': 'application/json'
       },
       method: 'POST',
+      body: body ? JSON.stringify(body) : undefined,
     });
-    return res.json();
+    return res.json() as ResultType;
   }
 
-  return useMutation(key, (data, variables) => mutateCall());
+  return useMutation(key, mutateCall);
 }

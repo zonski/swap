@@ -9,14 +9,27 @@
   },
   "private": true,
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/system": "^2.6.2",
+    "@chakra-ui/theme-tools": "^2.1.2",
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@hypertheme-editor/chakra-ui": "^0.1.6-rc.0",
     "@swc/helpers": "~0.5.2",
+    "@tanstack/react-query": "^5.8.7",
+    "@trpc/client": "^10.44.1",
+    "@trpc/server": "^10.44.1",
     "axios": "^1.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "react": "18.2.0",
+    "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.11.2",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",

@@ -1,5 +1,5 @@
 import {useSearchThings} from "../../api/things.api";
-import {Card, Link} from "@chakra-ui/react";
+import {Button, Card, Link} from "@chakra-ui/react";
 import {Link as ReactRouterLink} from 'react-router-dom'
 
 export const SearchThings = () => {
@@ -12,6 +12,13 @@ export const SearchThings = () => {
         <div>Loading {isLoading}</div>
         <div>Error: {isError} - {JSON.stringify(error)}</div>
         <h1>Things</h1>
+
+        <div>
+          <Button
+            as={ReactRouterLink} to="create"
+            variant='brand'
+          >Create Thing</Button>
+        </div>
 
         <table>
           <thead>

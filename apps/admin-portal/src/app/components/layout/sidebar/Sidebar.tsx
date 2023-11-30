@@ -43,35 +43,6 @@ export const Sidebar = (props: Props) => {
           />
           <NavItem navExpanded={expanded} path="/" icon={<FiHome/>} title="Home" active={true}/>
           <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
-          <NavItem navExpanded={expanded} path="/things" icon={<FiSettings/>} title="Things"/>
         </Box>
       </CustomScrollbars>
     </Box>

@@ -11,3 +11,7 @@ export interface SearchThingsRequest extends PagedRequest {
 
 export interface SearchThingsResponse extends PagedResults<Thing> {
 }
+
+export type CreateThingRequest = Pick<Thing, "name" | "description">
+
+export type UpdateThingRequest = CreateThingRequest & Pick<Thing, "id">;

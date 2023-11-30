@@ -1,6 +1,12 @@
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {useApiDataClient} from "./data-api.hook";
-import {SearchThingsRequest, SearchThingsResponse, Thing} from "@swap/server-api";
+import {
+  CreateThingRequest,
+  SearchThingsRequest,
+  SearchThingsResponse,
+  Thing,
+  UpdateThingRequest
+} from "@swap/server-api";
 
 const thingQueryKeys = {
   all: ['things'] as const,
@@ -24,7 +30,25 @@ export const useGetThing = (id?: string) => {
   return useQuery({
       queryKey: thingQueryKeys.detail(id!),
       queryFn: () => apiClient.get<Thing>(`/things/${id}`),
-      enabled: !!id
+      enabled: !!id,
     }
   );
+};
+
+export const useCreateThing = () => {
+  const apiClient = useApiDataClient();
+  return useMutation({
+    mutationFn: (request: CreateThingRequest) => {
+      return apiClient.post<Thing>('/things', request)
+    },
+  })
+};
+
+export const useUpdateThing = () => {
+  const apiClient = useApiDataClient();
+  return useMutation({
+    mutationFn: (request: UpdateThingRequest) => {
+      return apiClient.put<Thing>('/things', request)
+    },
+  })
 };

@@ -1,23 +1,24 @@
 import {Box, Portal} from "@chakra-ui/react";
 import {Sidebar} from "../sidebar/Sidebar";
-import React, {PropsWithChildren} from "react";
+import React, {PropsWithChildren, useState} from "react";
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
+
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
+
   return (
-    <Box>
-      <Sidebar />
+    <Box display="flex" height="100%" maxH="100%">
+      <Sidebar expanded={sidebarExpanded} onExpanded={setSidebarExpanded}/>
       <Box
-        float='right'
-        minHeight='100vh'
+        flex="1"
         height='100%'
+        maxH='100%'
         overflow='auto'
-        position='relative'
         maxHeight='100%'
-        w={{ base: '100%', xl: 'calc( 100% - 290px )' }}
-        maxWidth={{ base: '100%', xl: 'calc( 100% - 290px )' }}
+        ml={sidebarExpanded ? "300px" : "75px"}
         transition='all 0.33s cubic-bezier(0.685, 0.0473, 0.346, 1)'
         transitionDuration='.2s, .2s, .35s'
-        transitionProperty='top, bottom, width'
+        transitionProperty='margin'
         transitionTimingFunction='linear, linear, ease'>
         <Portal>
           <Box>

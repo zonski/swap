@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react'
-import {Flex, Text, Box, HStack, useColorModeValue} from '@chakra-ui/react'
+import {Box, Flex, HStack, Text, useColorModeValue} from '@chakra-ui/react'
 import {NavLink} from "react-router-dom";
 
 interface Props {
@@ -26,6 +26,7 @@ export const NavItem = ({path, icon, title, active, navExpanded}: Props) => {
           ps='10px'>
           <Flex w='100%' alignItems='center' justifyContent='center'>
             <Box
+              w="40px"
               color={active ? activeIcon : textColor}
               me='18px'>
               {icon}

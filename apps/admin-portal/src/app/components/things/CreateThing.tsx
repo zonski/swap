@@ -1,20 +1,25 @@
 import {useForm} from "react-hook-form";
 import {CreateThingRequest} from "@swap/server-api";
-import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Textarea} from "@chakra-ui/react";
+import {Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Textarea} from "@chakra-ui/react";
 import {useCreateThing} from "../../api/things.api";
 import {useNavigate} from "react-router-dom";
 
 export const CreateThing = () => {
 
-  const createThing = useCreateThing();
+  const {
+    mutate: createThing,
+    isPending: isSaving
+  } = useCreateThing();
+
   const {
     register,
     handleSubmit,
     formState: {errors}
   } = useForm<CreateThingRequest>();
+
   const navigate = useNavigate();
   const onSubmit = handleSubmit(async (request) => {
-    createThing.mutate(request, {
+    createThing(request, {
       onSuccess: () => {
         navigate("/things");
       }
@@ -49,9 +54,14 @@ export const CreateThing = () => {
             />
           </FormControl>
 
-          <Button variant="brand" type="submit">
-            Create
-          </Button>
+          <Flex>
+            <Button variant="link" type="submit" disabled={isSaving} onClick={() => navigate("/things")}>
+              Cancel
+            </Button>
+            <Button variant="brand" type="submit" disabled={isSaving}>
+              Save
+            </Button>
+          </Flex>
         </Box>
       </form>
     </div>

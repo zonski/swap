@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {asyncHandler} from "../../utils/async-handler";
-import {CreateThingRequest, Thing, UpdateThingRequest} from "@swap/server-api";
+import {CreateThingRequestSchema, Thing, UpdateThingRequestSchema} from "@swap/server-api";
 
 export const thingsController = Router();
 
@@ -39,7 +39,7 @@ thingsController.get(
 thingsController.post(
   "/things",
   asyncHandler(async (req, res) => {
-    const details = req.body as CreateThingRequest;
+    const details = CreateThingRequestSchema.parse(req.body);
     const thing = {
       id: ""+ (nextId++),
       name: details.name,
@@ -53,7 +53,7 @@ thingsController.post(
 thingsController.put(
   "/things",
   asyncHandler(async (req, res) => {
-    const details = req.body as UpdateThingRequest;
+    const details = UpdateThingRequestSchema.parse(req.body);
     const thing = dummyThings.find(t => t.id === details.id);
     thing.name = details.name;
     thing.description = details.description;

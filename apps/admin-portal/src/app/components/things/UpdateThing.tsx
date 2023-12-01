@@ -1,12 +1,12 @@
 import {useForm} from "react-hook-form";
 import {UpdateThingRequest} from "@swap/server-api";
-import {Box, Button, FormControl, FormErrorMessage, FormLabel, Input, Textarea} from "@chakra-ui/react";
+import {Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Textarea} from "@chakra-ui/react";
 import {useGetThing, useUpdateThing} from "../../api/things.api";
 import {useNavigate, useParams} from "react-router-dom";
 
 export const UpdateThing = () => {
 
-  const { thingId } = useParams();
+  const {thingId} = useParams();
   const {
     data: thing,
     isLoading,
@@ -77,9 +77,14 @@ export const UpdateThing = () => {
 
           {isSaveError && (<FormErrorMessage>{JSON.stringify(saveError)}</FormErrorMessage>)}
 
-          <Button variant="brand" type="submit" disabled={isSaving}>
-            Save
-          </Button>
+          <Flex>
+            <Button variant="link" type="submit" disabled={isSaving} onClick={() => navigate(`/things/${thingId}`)}>
+              Cancel
+            </Button>
+            <Button variant="brand" type="submit" disabled={isSaving}>
+              Save
+            </Button>
+          </Flex>
         </Box>
       </form>
     </div>

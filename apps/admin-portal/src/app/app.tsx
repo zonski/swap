@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from "react";
-import {MainLayout} from "./components/layout/layout/MainLayout";
+import {MainLayout} from "./components/common/layout/MainLayout";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./components/home/Home";
 import {SearchThings} from "./components/things/SearchThings";

@@ -1,17 +1,29 @@
-import {PagedRequest, PagedResults} from "./pagination";
+import {z} from "zod";
+import {PagedRequestSchema, PagedResults} from "./pagination";
 
-export interface Thing {
-  id: string;
-  name: string;
-  description?: string;
-}
+export const ThingSchema = z.object({
+  id: z.string(),
+  name: z.string().min(2).max(100),
+  description: z.string().max(1000).optional(),
+})
+export type Thing = z.infer<typeof ThingSchema>;
 
-export interface SearchThingsRequest extends PagedRequest {
-}
+export const SearchThingsRequestSchema = PagedRequestSchema.extend({
+  // todo search criteria
+})
+export type SearchThingsRequest = z.infer<typeof SearchThingsRequestSchema>;
 
-export interface SearchThingsResponse extends PagedResults<Thing> {
-}
+export type SearchThingsResponse = PagedResults<Thing>;
 
-export type CreateThingRequest = Pick<Thing, "name" | "description">
+export const CreateThingRequestSchema = ThingSchema.pick({
+  name: true,
+  description: true
+});
+export type CreateThingRequest = z.infer<typeof CreateThingRequestSchema>;
 
-export type UpdateThingRequest = CreateThingRequest & Pick<Thing, "id">;
+export const UpdateThingRequestSchema = ThingSchema.pick({
+  id: true,
+  name: true,
+  description: true
+});
+export type UpdateThingRequest = z.infer<typeof UpdateThingRequestSchema>;

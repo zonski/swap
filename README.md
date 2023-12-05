@@ -65,17 +65,22 @@ Nx comes with local caching already built-in (check your `nx.json`). On CI you m
 
 ## Todo
 
-* Forms
-* Zod and validation 
-* RPC 
-* Logging
-* Config loading
-* Tests
-* Pretify 
 * Loading and error states
-* Pagination
+* Server errors
+
 * SQL
 * Schema management
+
+
+* Pagination
+* Zod nice error messages 
+* RPC 
+* Logging
+* Tests
+* Pretify 
 * Auth
 * Automated build/deploy
 * IaC
+* Table actions
+* Delete / confirm
+* Beautiful UI

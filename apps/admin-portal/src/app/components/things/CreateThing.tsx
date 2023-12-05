@@ -1,8 +1,9 @@
 import {useForm} from "react-hook-form";
-import {CreateThingRequest} from "@swap/server-api";
+import {CreateThingRequest, CreateThingRequestSchema} from "@swap/server-api";
 import {Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Textarea} from "@chakra-ui/react";
 import {useCreateThing} from "../../api/things.api";
 import {useNavigate} from "react-router-dom";
+import {zodResolver} from '@hookform/resolvers/zod';
 
 export const CreateThing = () => {
 
@@ -15,7 +16,9 @@ export const CreateThing = () => {
     register,
     handleSubmit,
     formState: {errors}
-  } = useForm<CreateThingRequest>();
+  } = useForm<CreateThingRequest>({
+    resolver: zodResolver(CreateThingRequestSchema),
+  });
 
   const navigate = useNavigate();
   const onSubmit = handleSubmit(async (request) => {
@@ -32,26 +35,27 @@ export const CreateThing = () => {
       <form onSubmit={onSubmit}>
         <Box>
 
-          <FormControl mr="5%" isInvalid={!!errors.name}>
+          <FormControl isInvalid={!!errors.name}>
             <FormLabel htmlFor="name">
               Name
             </FormLabel>
             <Input
               id="name"
-              {...register("name", {required: true})}
+              {...register("name")}
             />
-            {errors.name && (<FormErrorMessage>This field is required</FormErrorMessage>)}
+            {errors.name && (<FormErrorMessage>{errors.name.message}</FormErrorMessage>)}
           </FormControl>
 
-          <FormControl mr="5%">
+          <FormControl isInvalid={!!errors.description}>
             <FormLabel htmlFor="description">
-              Name
+              Description
             </FormLabel>
             <Textarea
               id="description"
               {...register("description")}
               placeholder="Describe this thing"
             />
+            {errors.description && (<FormErrorMessage>{errors.description.message}</FormErrorMessage>)}
           </FormControl>
 
           <Flex>

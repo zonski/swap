@@ -1,7 +1,8 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {ZodType, ZodTypeDef} from "zod";
+import {config} from "../../config";
 
-const apiUrl = 'http://localhost:3333';
+const apiUrl = config.apiBaseUrl;
 
 interface DataClientOptions {
   ignore401?: boolean;

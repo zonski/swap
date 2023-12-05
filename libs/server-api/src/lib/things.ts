@@ -4,7 +4,7 @@ import {PagedRequestSchema, PagedResults} from "./pagination";
 export const ThingSchema = z.object({
   id: z.string(),
   name: z.string().min(2).max(100),
-  description: z.string().max(1000).optional(),
+  description: z.string().max(500).optional(),
 })
 export type Thing = z.infer<typeof ThingSchema>;
 

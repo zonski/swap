@@ -1,8 +1,9 @@
 import {useForm} from "react-hook-form";
-import {UpdateThingRequest} from "@swap/server-api";
+import {UpdateThingRequest, UpdateThingRequestSchema} from "@swap/server-api";
 import {Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Textarea} from "@chakra-ui/react";
 import {useGetThing, useUpdateThing} from "../../api/things.api";
 import {useNavigate, useParams} from "react-router-dom";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 export const UpdateThing = () => {
 
@@ -26,8 +27,10 @@ export const UpdateThing = () => {
     handleSubmit,
     formState: {errors}
   } = useForm<UpdateThingRequest>({
-    values: thing
+    values: thing,
+    resolver: zodResolver(UpdateThingRequestSchema),
   });
+
   const navigate = useNavigate();
   const onSubmit = handleSubmit(async (request) => {
     createThing(request, {
@@ -53,18 +56,18 @@ export const UpdateThing = () => {
       <form onSubmit={onSubmit}>
         <Box>
 
-          <FormControl mr="5%" isInvalid={!!errors.name}>
+          <FormControl isInvalid={!!errors.name}>
             <FormLabel htmlFor="name">
               Name
             </FormLabel>
             <Input
               id="name"
-              {...register("name", {required: true})}
+              {...register("name")}
             />
-            {errors.name && (<FormErrorMessage>This field is required</FormErrorMessage>)}
+            {errors.name && (<FormErrorMessage>{errors.name.message}</FormErrorMessage>)}
           </FormControl>
 
-          <FormControl mr="5%">
+          <FormControl isInvalid={!!errors.description}>
             <FormLabel htmlFor="description">
               Name
             </FormLabel>
@@ -73,6 +76,7 @@ export const UpdateThing = () => {
               {...register("description")}
               placeholder="Describe this thing"
             />
+            {errors.description && (<FormErrorMessage>{errors.description.message}</FormErrorMessage>)}
           </FormControl>
 
           {isSaveError && (<FormErrorMessage>{JSON.stringify(saveError)}</FormErrorMessage>)}

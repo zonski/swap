@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {PagedRequestSchema, PagedResults} from "./pagination";
+import {createPagedResponseSchema, PagedRequestSchema} from "./pagination";
 
 export const ThingSchema = z.object({
   id: z.string(),
@@ -13,7 +13,8 @@ export const SearchThingsRequestSchema = PagedRequestSchema.extend({
 })
 export type SearchThingsRequest = z.infer<typeof SearchThingsRequestSchema>;
 
-export type SearchThingsResponse = PagedResults<Thing>;
+export const SearchThingsResponseSchema = createPagedResponseSchema(ThingSchema);
+export type SearchThingsResponse = z.infer<typeof SearchThingsResponseSchema>;
 
 export const CreateThingRequestSchema = ThingSchema.pick({
   name: true,

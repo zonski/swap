@@ -84,3 +84,5 @@ Nx comes with local caching already built-in (check your `nx.json`). On CI you m
 * Table actions
 * Delete / confirm
 * Beautiful UI
+* Soft or logged deletes
+* User action tracking

@@ -43,7 +43,6 @@ export const useApiDataClient = ({ignore401}: DataClientOptions = {}): DataClien
 
   return {
     async get<T>(url: string, config?: ApiRequestConfig<T>): Promise<T> {
-      console.log('Calling GET', url);
       return toResult(axiosClient.get<T>(url, await authHeadersAndConfig(config)), config);
     },
     async post<T>(url: string, data?: unknown, config?: ApiRequestConfig<T>): Promise<T> {

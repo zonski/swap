@@ -20,25 +20,23 @@ const dummyThings: Thing[] = [
 
 thingsController.get(
   "/things",
-  asyncHandler(async (req, res) => {
-    res.json({
-      results: dummyThings
-    });
+  asyncHandler(async () => {
+    return dummyThings;
   }),
 );
 
 thingsController.get(
   "/things/:thingId",
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req) => {
     const { thingId } = req.params;
-    const thing = dummyThings.find(t => t.id === thingId);
-    res.json(thing);
+    // throw new Error('Stuff went wrong');
+    return dummyThings.find(t => t.id === thingId);
   }),
 );
 
 thingsController.post(
   "/things",
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req) => {
     const details = CreateThingRequestSchema.parse(req.body);
     const thing = {
       id: ""+ (nextId++),
@@ -46,18 +44,18 @@ thingsController.post(
       description: details.description,
     }
     dummyThings.push(thing);
-    res.json(thing);
+    return thing;
   }),
 );
 
 thingsController.put(
   "/things",
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req) => {
     const details = UpdateThingRequestSchema.parse(req.body);
     const thing = dummyThings.find(t => t.id === details.id);
     thing.name = details.name;
     thing.description = details.description;
-    res.json(thing);
+    return thing;
   }),
 );
 
@@ -71,6 +69,5 @@ thingsController.delete(
       dummyThings.splice(index, 1);
       res.json(thing);
     }
-    res.json({});
   }),
 );

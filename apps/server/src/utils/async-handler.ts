@@ -1,4 +1,4 @@
-import { Handler, NextFunction, Request, Response } from "express";
+import {Handler, NextFunction, Request, Response} from "express";
 
 export type AsyncHandler = (req: Request, res: Response, next?: NextFunction) => Promise<unknown>;
 
@@ -9,8 +9,9 @@ export type AsyncHandler = (req: Request, res: Response, next?: NextFunction) =>
  * Any errors caught will be passed onto the configured error handling middleware
  * @param handlerFn async handler
  */
-export const asyncHandler =
-  (handlerFn: AsyncHandler): Handler =>
-  (req, res, next) =>
-    handlerFn(req, res, next).catch((error) => next(error));
-
+export const asyncHandler = (handlerFn: AsyncHandler): Handler =>
+  (req, res, next) => {
+    handlerFn(req, res, next)
+    .then(value => res.json(value))
+    .catch((error) => next(error));
+  }

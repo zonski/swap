@@ -1,6 +1,8 @@
 import {useSearchThings} from "../../api/things.api";
-import {Button, Card, Link} from "@chakra-ui/react";
+import {Button, Card, Link, Table, Tbody, Td, Th, Thead, Tr} from '@chakra-ui/react'
 import {Link as ReactRouterLink} from 'react-router-dom'
+import {LoadingSpinner} from "../common/loading/LoadingSpinner";
+import {ErrorMessage} from "../common/error/ErrorMessage";
 
 export const SearchThings = () => {
 
@@ -9,8 +11,6 @@ export const SearchThings = () => {
   return (
     <div>
       <Card w='100%' p="4">
-        <div>Loading {isLoading}</div>
-        <div>Error: {isError} - {JSON.stringify(error)}</div>
         <h1>Things</h1>
 
         <div>
@@ -20,26 +20,28 @@ export const SearchThings = () => {
           >Create Thing</Button>
         </div>
 
-        <table>
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-          </tr>
-          </thead>
-          <tbody>
-          {data?.results?.map(thing => (
-            <tr key={thing.id}>
-              <td>
+        <Table>
+          <Thead>
+          <Tr>
+            <Th>ID</Th>
+            <Th>Name</Th>
+          </Tr>
+          </Thead>
+          <Tbody>
+          {isLoading && <LoadingSpinner/>}
+          {isError && <ErrorMessage inline={true} error={error}/> }
+          {data?.items?.map(thing => (
+            <Tr key={thing.id}>
+              <Td>
                 {thing.id}
-              </td>
-              <td>
+              </Td>
+              <Td>
                 <Link as={ReactRouterLink} to={thing.id}>{thing.name}</Link>
-              </td>
-            </tr>
+              </Td>
+            </Tr>
           ))}
-          </tbody>
-        </table>
+          </Tbody>
+        </Table>
       </Card>
     </div>
   )

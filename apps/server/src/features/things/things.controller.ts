@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {asyncHandler} from "../../utils/async-handler";
+import {asyncHandler} from "../../utils/handler/async-handler";
 import {CreateThingRequestSchema, Thing, UpdateThingRequestSchema} from "@swap/server-api";
 
 export const thingsController = Router();
@@ -18,22 +18,26 @@ const dummyThings: Thing[] = [
   }
 ];
 
+// search things
 thingsController.get(
   "/things",
   asyncHandler(async () => {
-    return dummyThings;
+    return {
+      items: dummyThings
+    };
   }),
 );
 
+// get thing details
 thingsController.get(
   "/things/:thingId",
   asyncHandler(async (req) => {
     const { thingId } = req.params;
-    // throw new Error('Stuff went wrong');
     return dummyThings.find(t => t.id === thingId);
   }),
 );
 
+// create thing
 thingsController.post(
   "/things",
   asyncHandler(async (req) => {
@@ -48,6 +52,7 @@ thingsController.post(
   }),
 );
 
+// update thing
 thingsController.put(
   "/things",
   asyncHandler(async (req) => {
@@ -59,6 +64,7 @@ thingsController.put(
   }),
 );
 
+// delete thing
 thingsController.delete(
   "/things/:thingId",
   asyncHandler(async (req, res) => {

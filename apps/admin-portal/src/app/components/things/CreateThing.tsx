@@ -4,12 +4,15 @@ import {Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Text
 import {useCreateThing} from "../../api/things.api";
 import {useNavigate} from "react-router-dom";
 import {zodResolver} from '@hookform/resolvers/zod';
+import {ErrorMessage} from "../common/error/ErrorMessage";
 
 export const CreateThing = () => {
 
   const {
     mutate: createThing,
-    isPending: isSaving
+    isPending: isSaving,
+    isError: isSaveError,
+    error: saveError
   } = useCreateThing();
 
   const {
@@ -57,6 +60,8 @@ export const CreateThing = () => {
             />
             {errors.description && (<FormErrorMessage>{errors.description.message}</FormErrorMessage>)}
           </FormControl>
+
+          {isSaveError && (<ErrorMessage error={saveError} inline={true}/>)}
 
           <Flex>
             <Button variant="link" type="submit" disabled={isSaving} onClick={() => navigate("/things")}>

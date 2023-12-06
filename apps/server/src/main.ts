@@ -8,6 +8,7 @@ import * as path from 'path';
 import cors from 'cors';
 import {thingsController} from "./features/things/things.controller";
 import {config} from "./config";
+import {errorHandler} from "./utils/error/error-handler";
 
 const app = express();
 
@@ -18,10 +19,11 @@ app.use(cors({
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json({ limit: "15mb" }));
 
-
 const apiRouter = Router()
 apiRouter.use(thingsController);
 app.use('/api', apiRouter);
+
+app.use(errorHandler);
 
 const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {

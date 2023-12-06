@@ -71,7 +71,6 @@ Nx comes with local caching already built-in (check your `nx.json`). On CI you m
 * SQL
 * Schema management
 
-
 * Pagination
 * Zod nice error messages 
 * RPC 
@@ -86,3 +85,4 @@ Nx comes with local caching already built-in (check your `nx.json`). On CI you m
 * Beautiful UI
 * Soft or logged deletes
 * User action tracking
+* Client side default Route when not found

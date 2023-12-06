@@ -1,6 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {ZodType, ZodTypeDef} from "zod";
 import {config} from "../../config";
+import {ApiError} from "@swap/server-api";
 
 const apiUrl = config.apiBaseUrl;
 
@@ -37,7 +38,13 @@ export const useApiDataClient = ({ignore401}: DataClientOptions = {}): DataClien
         // await signOut();
         // location.reload();
       }
-      throw error;
+      const errBody = error.response.data;
+      throw new ApiError(
+        errBody.message,
+        error.response.status,
+        errBody.code,
+        errBody.extra
+      );
     },
   );
 

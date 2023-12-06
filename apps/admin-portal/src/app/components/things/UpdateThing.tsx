@@ -4,6 +4,8 @@ import {Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Input, Text
 import {useGetThing, useUpdateThing} from "../../api/things.api";
 import {useNavigate, useParams} from "react-router-dom";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {LoadingPanel} from "../common/loading/LoadingPanel";
+import {ErrorMessage} from "../common/error/ErrorMessage";
 
 export const UpdateThing = () => {
 
@@ -11,8 +13,8 @@ export const UpdateThing = () => {
   const {
     data: thing,
     isLoading,
-    isError: isLoadingError,
-    error: loadingError
+    isError: isLoadError,
+    error: loadError
   } = useGetThing(thingId);
 
   const {
@@ -40,58 +42,56 @@ export const UpdateThing = () => {
     })
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-  if (isLoadingError) {
-    return <div>There was an error loading the details: {JSON.stringify(loadingError)}</div>
-  }
-  if (!thing) {
-    return <div>Thing was not found</div>
-  }
-
   return (
-    <div>
-      <h1>Update {thing.name}</h1>
-      <form onSubmit={onSubmit}>
-        <Box>
+    <LoadingPanel isLoading={isLoading} isError={isLoadError} error={loadError}>
+      {thing ? (
+        <div>
+          <h1>Update {thing.name}</h1>
+          <form onSubmit={onSubmit}>
+            <Box>
 
-          <FormControl isInvalid={!!errors.name}>
-            <FormLabel htmlFor="name">
-              Name
-            </FormLabel>
-            <Input
-              id="name"
-              {...register("name")}
-            />
-            {errors.name && (<FormErrorMessage>{errors.name.message}</FormErrorMessage>)}
-          </FormControl>
+              <FormControl isInvalid={!!errors.name}>
+                <FormLabel htmlFor="name">
+                  Name
+                </FormLabel>
+                <Input
+                  id="name"
+                  {...register("name")}
+                />
+                {errors.name && (<FormErrorMessage>{errors.name.message}</FormErrorMessage>)}
+              </FormControl>
 
-          <FormControl isInvalid={!!errors.description}>
-            <FormLabel htmlFor="description">
-              Name
-            </FormLabel>
-            <Textarea
-              id="description"
-              {...register("description")}
-              placeholder="Describe this thing"
-            />
-            {errors.description && (<FormErrorMessage>{errors.description.message}</FormErrorMessage>)}
-          </FormControl>
+              <FormControl isInvalid={!!errors.description}>
+                <FormLabel htmlFor="description">
+                  Name
+                </FormLabel>
+                <Textarea
+                  id="description"
+                  {...register("description")}
+                  placeholder="Describe this thing"
+                />
+                {errors.description && (<FormErrorMessage>{errors.description.message}</FormErrorMessage>)}
+              </FormControl>
 
-          {isSaveError && (<FormErrorMessage>{JSON.stringify(saveError)}</FormErrorMessage>)}
+              {isSaveError && (<ErrorMessage error={saveError} inline={true}/>)}
 
-          <Flex>
-            <Button variant="link" type="submit" disabled={isSaving} onClick={() => navigate(`/things/${thingId}`)}>
-              Cancel
-            </Button>
-            <Button variant="brand" type="submit" disabled={isSaving}>
-              Save
-            </Button>
-          </Flex>
-        </Box>
-      </form>
-    </div>
+              <Flex>
+                <Button variant="link" type="submit" disabled={isSaving} onClick={() => navigate(`/things/${thingId}`)}>
+                  Cancel
+                </Button>
+                <Button variant="brand" type="submit" disabled={isSaving}>
+                  Save
+                </Button>
+              </Flex>
+            </Box>
+          </form>
+        </div>
+      ) : (
+        <div>
+          Thing was not found
+        </div>
+      )}
+    </LoadingPanel>
   )
 }
 

@@ -1,32 +1,32 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import type { Server } from "node:http";
+import type { Express } from "express";
+import { createServer } from "./server";
+import { getConfig } from "./config";
+import {createLogger} from "./util/log/logger";
 
-import express, {Router} from 'express';
-import * as path from 'path';
-import cors from 'cors';
-import {thingsController} from "./features/things/things.controller";
-import {config} from "./config";
-import {errorHandler} from "./utils/error/error-handler";
+const logger = createLogger("main-startup");
 
-const app = express();
+const startServer = (app: Express): Server => {
+  const port = getConfig().port;
+  const server = app.listen(port, () => {
+    logger.info(`Listening at http://localhost:${port}`);
+  });
+  server.on("error", (err) => logger.error(err));
 
-const corsUrls = config.allowedCorsUrls.split(',');
-app.use(cors({
-  origin: corsUrls
-}))
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-app.use(express.json({ limit: "15mb" }));
+  // Gracefully handle cloud providers trying to shut down servers
+  process.on("SIGTERM", () => {
+    logger.info("SIGTERM received: stopping server");
+    server.close(() => {
+      logger.info("Server stopped");
+    });
+  });
 
-const apiRouter = Router()
-apiRouter.use(thingsController);
-app.use('/api', apiRouter);
+  return server;
+};
 
-app.use(errorHandler);
-
-const port = process.env.PORT || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
+process.on("uncaughtException", (err) => {
+  logger.error(err.stack);
+  logger.info("Node NOT exiting after error...");
 });
-server.on('error', console.error);
+
+startServer(createServer());

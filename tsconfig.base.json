@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@swap/server-api": ["libs/server-api/src/index.ts"]
+      "@swap/api": ["libs/api/src/index.ts"],
+      "@swap/uikit": ["libs/uikit/src/index.ts"],
+      "@swap/uiutil": ["libs/uikit/src/lib/util/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

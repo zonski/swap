@@ -1,6 +1,6 @@
 import {Router} from "express";
-import {asyncHandler} from "../../utils/handler/async-handler";
-import {CreateThingRequestSchema, Thing, UpdateThingRequestSchema} from "@swap/server-api";
+import {CreateThingRequestSchema, Thing, UpdateThingRequestSchema} from "@swap/api";
+import {asyncHandler} from "../../util/route/async-handler";
 
 export const thingsController = Router();
 
